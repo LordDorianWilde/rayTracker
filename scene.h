@@ -19,7 +19,7 @@ public:
     void addSphere(Sphere);
     double intersecSphere(Sphere, Vecteur);
     double intensityLight(Sphere, Vecteur, double);
-    double lightPixel(Vecteur);
+    double* lightPixel(Vecteur);
 };
 
 #endif // SCENE_H

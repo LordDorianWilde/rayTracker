@@ -5,6 +5,7 @@
 #include "vecteur.h"
 #include "scene.h"
 #include "sphere.h"
+#include "string"
 
 using namespace std;
 
@@ -18,17 +19,19 @@ int main()
     double alpha = 3.14/2.;
 
     Vecteur C(0, 0, 55);
-    Vecteur L(-23, 20, -15);
+    Vecteur L(-10, 20, 40);
     Scene scene(C, L);
 
-    Sphere s (Vecteur(5,0,0), 8.);
+    Sphere s (Vecteur(0,0,0), 10., "white");
     scene.addSphere(s);
-    Sphere r (Vecteur(-5,0,0), 8.);
-    scene.addSphere(r);
-    Sphere mur (Vecteur(-1000,0,0), 975);
-    scene.addSphere(mur);
-    Sphere murFond (Vecteur(0,0,-1000), 980);
+    Sphere murGauche (Vecteur(-1000,0,0), 940, "red");
+    scene.addSphere(murGauche);
+    Sphere murDroite (Vecteur(1000,0,0), 940, "blue");
+    scene.addSphere(murDroite);
+    Sphere murFond (Vecteur(0,0,-1000), 940, "green");
     scene.addSphere(murFond);
+    Sphere sol (Vecteur(0,-1000,0), 940, "white");
+    scene.addSphere(sol);
 
 
     for(int i = 0; i<W; i++)
@@ -38,10 +41,10 @@ int main()
             Vecteur u(j - H/2., W/2. - i, -W/(2.*tan(alpha/2.)));
             u.normalize();
 
-            double inten = scene.lightPixel(u);
-            pixels[i*W + j] = inten;
-            pixels[i*W + j + H*W] = inten;
-            pixels[i*W + j + 2*H*W] = inten;
+            double* inten = scene.lightPixel(u);
+            pixels[i*W + j] = inten[0];
+            pixels[i*W + j + H*W] = inten[1];
+            pixels[i*W + j + 2*H*W] = inten[2];
 
         }
     }
